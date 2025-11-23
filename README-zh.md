@@ -34,7 +34,25 @@ garble -tiny -literals -seed=random build -buildmode=c-shared -o libencrypt.dyli
 
 ### 交叉编译
 
-支持使用标准的 `GOOS` 和 `GOARCH` 环境变量进行交叉编译。注意：由于使用了 `c-shared` 模式，您需要安装目标平台的 C 交叉编译器并启用 CGO。
+支持使用标准的 `GOOS` 和 `GOARCH` 环境变量进行交叉编译。您可以使用 `Makefile` 快速构建所有目标。
+
+**注意**：由于使用了 `c-shared` 模式，您需要安装并指定目标平台的 C 交叉编译器（CC）并启用 CGO。
+
+**使用 Makefile:**
+
+项目提供了一个 `Makefile` 来简化构建流程。
+
+```bash
+# 构建当前平台的库（或所有已配置编译器的平台）
+make
+
+# 构建特定平台
+# 请确保环境变量中 CC 指向了正确的交叉编译器，或者直接在命令中指定
+CC=x86_64-linux-gnu-gcc make linux-amd64
+CC=x86_64-w64-mingw32-gcc make windows-amd64
+```
+
+**手动构建示例:**
 
 ```shell
 # 示例：在 macOS 上编译 Linux (x86_64) 版本

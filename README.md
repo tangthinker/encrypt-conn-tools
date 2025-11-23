@@ -38,7 +38,25 @@ garble -tiny -literals -seed=random build -buildmode=c-shared -o libencrypt.so m
 
 ### Cross Compilation
 
-Cross-compilation is supported using standard `GOOS` and `GOARCH` environment variables. Note: Since `c-shared` mode is used, you must have a C cross-compiler for the target platform installed and CGO enabled.
+Cross-compilation is supported using standard `GOOS` and `GOARCH` environment variables. You can use the included `Makefile` to quickly build for multiple targets.
+
+**Note**: Since `c-shared` mode is used, you must have a C cross-compiler (CC) for the target platform installed and CGO enabled.
+
+**Using Makefile:**
+
+The project includes a `Makefile` to simplify the build process.
+
+```bash
+# Build for current platform (or all platforms if compilers are configured)
+make
+
+# Build for specific platform
+# Ensure CC points to the correct cross-compiler, or specify it inline
+CC=x86_64-linux-gnu-gcc make linux-amd64
+CC=x86_64-w64-mingw32-gcc make windows-amd64
+```
+
+**Manual Build Examples:**
 
 ```shell
 # Example: Build for Linux (x86_64) on macOS
